@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="hw8_css.css">
+
+</head>
+<body class="container-fluid" style="padding: 0;" ng-app="myApp" ng-controller="myController">
+<div style="overflow-x: hidden;">
+
+	<div id='header' class="well row" style="padding-top: 10px; padding-bottom: 10px; margin: 0;">
+		<div class="col-sm-3" style="height: 46px; text-align: left; color: #3B5998; font-size: 2rem;">
+			<div style="margin: 1rem;">
+			FB Search
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<form action="javascript:sendRequest()">
+	    		<div class="input-group input-group-lg search_input" style="float: left;">
+	      			<input type="text" class="form-control" id="keyword" placeholder="type something..." style="border-radius: 0;">
+	      			<div class="input-group-btn">
+	        			<button class="btn btn-primary btn-lg search_button" onclick="sendRequest()" style="border-radius: 0;"><i class="glyphicon glyphicon-search"></i></button>
+	      			</div>
+	    		</div>
+	    		<input type="button" name="clear" value="Clear" class="btn btn-default btn-lg hard_radius clear_button" onclick="clear_all()" style="border-color: #3B5998; color: #3B5998;">
+	    	</form>
+	  	</div>
+	</div>
+
+
+
+	<ul class="nav nav-pills nav-justified" style="margin: 0;">
+	  	<li id='first' class="nav-item hard_radius active" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#user_tab" id="tab1" onclick="change_tabs(1); renew_star('user_tab');" style="padding: 0px; border-radius: 0; background-color: #3B5998; margin: 0;">Users</a>
+	  	</li>
+	  	<li class="nav-item hard_radius" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#page_tab" id="tab2" onclick="change_tabs(2); renew_star('page_tab');" style="padding: 0px; border-radius: 0; margin: 0;">Pages</a>
+	  	</li>
+	  	<li class="nav-item hard_radius" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#event_tab" id="tab3" onclick="change_tabs(3); renew_star('event_tab');" style="padding: 0px; border-radius: 0; margin: 0;">Events</a>
+	  	</li>
+	  	<li class="nav-item hard_radius" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#place_tab" id="tab4" onclick="change_tabs(4); renew_star('place_tab');" style="padding: 0px; border-radius: 0; margin: 0;">Places</a>
+	  	</li>
+	  	<li class="nav-item hard_radius" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#group_tab" id="tab5" onclick="change_tabs(5); renew_star('group_tab');" style="padding: 0px; border-radius: 0; margin: 0;">Groups</a>
+	  	</li>
+	  	<li class="nav-item hard_radius" ng-click="slide_out()" style="margin: 0;">
+	    	<a class="nav-link hard_radius tabs" data-toggle="tab" href="#favorite_tab" id="tab6" onclick="change_tabs(6); renew_star('favorite_tab');" style="padding: 0px; border-radius: 0; margin: 0;">Favorites</a>
+	  	</li>
+	</ul>
+	<div style="width: 100%; background-color: #3B5998; height: 0.3rem; margin: 0;"></div>
+
+
+
+
+
+<div class="slide" ng-class="{slide_after:selected}">
+
+
+	<div id="detail_panel" style="width: 50%; float: left;">
+
+		<div id="detail_buttons" style="width: 100%; height: 65px; display: block;"></div>
+
+		<div style="width: 100%; display: block; position: relative;">
+			<div class="col-sm-6" style="padding-left: 2%; padding-right: 2%;">
+				<div class="panel panel-default" style="padding: 0;">
+		  			<div class="panel-heading">Albums</div>
+		  			<div class="panel-body"><div id="albums_panel" class="panel-group"></div></div>
+				</div>
+			</div>
+
+			<div class="col-sm-6" style="padding-left: 2%; padding-right: 2%">
+				<div class="panel panel-default" style="padding: 0;">
+		  			<div class="panel-heading">Posts</div>
+		 			<div class="panel-body"><div id="posts_panel" class="panel-group"></div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="tabs" class="tab-content" style="width: 50%; float: right;" ng-hide="selected">
+		<div id="user_tab" class="tab-pane in active table-responsive" style="padding: 2%; border: 0;"></div>
+		<div id="page_tab" class="tab-pane table-responsive" style="padding: 2%; border: 0;"></div>
+		<div id="event_tab" class="tab-pane table-responsive" style="padding: 2%; border: 0;"></div>
+		<div id="place_tab" class="tab-pane table-responsive" style="padding: 2%; border: 0;"></div>
+		<div id="group_tab" class="tab-pane table-responsive" style="padding: 2%; border: 0;"></div>
+		<div id="favorite_tab" class="tab-pane table-responsive" style="padding: 2%; border: 0;"></div>
+	</div>
+
+</div>
+
+	<script src="hw8_js.js"></script>
+
+</div>
+</body>
+</html>

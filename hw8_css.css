@@ -1,0 +1,67 @@
+.clear_button{
+	position: relative;
+	left: 3rem;
+}
+
+.search_input{
+	width: 60%;
+}
+
+.search_button{
+	background-color: #3B5998;
+	width: 10rem;
+}
+
+.tabs{
+	height: 60px;
+	text-align: center;
+	color: black;
+	line-height: 60px;
+	font-size: 1.8rem;
+}
+
+@media only screen and (max-width: 768px){
+	.clear_button{
+		float: right;
+		margin-right: 1%;
+	}
+	.search_input{
+		width: 73%;
+	}
+	.search_button{
+		width: 5rem;
+	}
+	.tabs{
+		height: 40px;
+		line-height: 40px;
+	}
+}
+
+.hard_radius{
+	border-radius: 0;
+}
+
+.profile_img{
+	width: 40px;
+	height: 40px;
+}
+
+.glyphicon-star {
+	color: #FDD506;
+}
+
+.slide{
+	-webkit-transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-moz-transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-ms-transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-o-transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	width: 200%;
+	position: relative;
+	left: -100%;
+
+}
+
+.slide_after{
+	left: 0;
+}
